@@ -7,9 +7,10 @@
 
 ## Features
 
-- [x] Header/Tag
+- [x] FLV File Structure
+- [ ] Audio/Video Tags
+- [ ] MetaData Tags
 - [ ] AAC/AVC Configuration
-- [ ] MetaData
 - [ ] AVC SPS/PPS Data
 - [ ] AAC/AVC Bitstream
 
@@ -19,29 +20,27 @@
 go get github.com/pixelbender/go-flv
 ```
 
-## FLV Reader
+## Read FLV file
 
 ```go
 package main
 
 import (
-    "github.com/pixelbender/go-flv/flv"
-    "os"
-    "log"
+	"github.com/pixelbender/go-flv/flv"
+	"os"
+	"io"
+	"log"
 )
 
 func main() {
 	f, err := os.Open("example.flv")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer f.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
 
-    r := flv.NewReader(f)
-    if err != nil {
-        log.Fatal(err)
-    }
-    h, err := r.ReadHeader()
+	r := flv.NewReader(f)
+	h, err := r.ReadHeader()
 	if err != nil {
 		log.Fatal(err)
 	}

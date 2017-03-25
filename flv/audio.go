@@ -47,7 +47,7 @@ func ParseAudio(b []byte) (*Audio, error) {
 		SampleRate: f >> 2 & 3,
 		SampleSize: f >> 1 & 1,
 		Channels:   f & 1,
-		Payload: b[1:],
+		Payload:    b[1:],
 	}
 	return a, nil
 }

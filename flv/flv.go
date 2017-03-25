@@ -1,11 +1,11 @@
 package flv
 
 type Header struct {
-	Flags     uint8
+	Flags uint8
 }
 
 func NewHeader(flags uint8) *Header {
-	return &Header{ flags}
+	return &Header{flags}
 }
 
 type Tag struct {

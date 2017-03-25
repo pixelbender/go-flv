@@ -2,9 +2,9 @@ package flv
 
 import (
 	"bufio"
-	"io"
-	"fmt"
 	"encoding/hex"
+	"fmt"
+	"io"
 )
 
 // Reader reads FLV header and tags from an input stream.
