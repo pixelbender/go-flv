@@ -10,12 +10,11 @@ import (
 // Reader reads FLV header and tags from an input stream.
 type Reader struct {
 	*fileReader
-	prev int
 }
 
 // NewReader returns a new reader that reads from r.
 func NewReader(r io.Reader) *Reader {
-	return &Reader{newFileReader(r), 0}
+	return &Reader{newFileReader(r)}
 }
 
 // ReadHeader reads FLV header
@@ -41,16 +40,12 @@ func (r *Reader) ReadTag() (*Tag, io.Reader, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	if p := int(getUint32(b)); p != r.prev {
-		return nil, nil, fmt.Errorf("flv: incorrect previous tag size: %d, expected: %d", p, r.prev)
-	}
 	tag := &Tag{
 		Type:   b[4],
 		Size:   getInt24(b[5:]),
 		Time:   getTime(b[8:]),
 		Stream: getUint24(b[12:]),
 	}
-	r.prev = tag.Size + 11
 	data, err := r.reader(tag.Size)
 	if err != nil {
 		return nil, nil, err

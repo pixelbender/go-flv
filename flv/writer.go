@@ -7,12 +7,11 @@ import (
 // Writer writes FLV header and tags to an output stream.
 type Writer struct {
 	*fileWriter
-	prev int
 }
 
 // NewWriter returns a new writer that writes to w.
 func NewWriter(w io.Writer) *Writer {
-	return &Writer{newFileWriter(w), 0}
+	return &Writer{newFileWriter(w)}
 }
 
 // WriteHeader writes FLV header.
