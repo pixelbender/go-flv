@@ -8,7 +8,7 @@
 ## Features
 
 - [x] FLV File Structure
-- [ ] Audio/Video Tags
+- [x] Audio/Video Tags
 - [ ] MetaData Tags
 - [ ] AAC/AVC Configuration
 - [ ] AVC SPS/PPS Data
