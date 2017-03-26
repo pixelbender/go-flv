@@ -10,11 +10,11 @@ var errUnsupportedVideo = errors.New("flv: unsupported video")
 
 var videoTypes = map[uint8]string{
 	1: "video/jpeg",
-	2: "video/h263-flash",
-	3: "video/svc-flash",
+	2: "video/x-flash-h263",
+	3: "video/x-flash-screen",
 	4: "video/vp6",
 	5: "video/vp6-alpha",
-	6: "video/svc2-flash",
+	6: "video/x-flash-screen2",
 	7: "video/h264",
 }
 

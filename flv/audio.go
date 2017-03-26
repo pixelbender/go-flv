@@ -11,28 +11,26 @@ var errUnsupportedAudio = errors.New("flv: unsupported audio")
 var audioTypes = map[uint8]string{
 	0:  "audio/pcm",
 	1:  "audio/adpcm",
-	2:  "audio/mpeg",
+	2:  "audio/mp3",
 	3:  "audio/pcm",
 	4:  "audio/nellymoser",
 	5:  "audio/nellymoser",
 	6:  "audio/nellymoser",
 	7:  "audio/pcma",
 	8:  "audio/pcmu",
-	10: "audio/mpeg",
+	10: "audio/aac",
 	11: "audio/speex",
-	14: "audio/mpeg",
+	14: "audio/mp3",
 }
 
 var audioRates = []int{5512, 11025, 22050, 44100}
 
 type AudioFormat struct {
-	typ         uint8
-	Type        string `json:"type,omitempty"`
-	Rate        int    `json:"rate,omitempty"`
-	Format      string `json:"format,omitempty"`
-	Channels    int    `json:"channels,omitempty"`
-	MPEGVersion int    `json:"mpeg-version,omitempty"`
-	MPEGLayer   int    `json:"mpeg-layer,omitempty"`
+	typ      uint8
+	Type     string `json:"type,omitempty"`
+	Rate     int    `json:"rate,omitempty"`
+	Format   string `json:"format,omitempty"`
+	Channels int    `json:"channels,omitempty"`
 }
 
 func (r *AudioFormat) Equal(b []byte) bool {
@@ -61,9 +59,6 @@ func ParseAudioFormat(b []byte) (*AudioFormat, error) {
 	switch t >> 4 {
 	case 0, 1:
 		c.Format = []string{"u8", "s16"}[s]
-	case 2:
-		c.MPEGVersion = 1
-		c.MPEGLayer = 3
 	case 3:
 		c.Format = []string{"u8", "s16le"}[s]
 	case 4, 11:
@@ -73,11 +68,10 @@ func ParseAudioFormat(b []byte) (*AudioFormat, error) {
 		c.Rate = 8000
 		c.Channels = 1
 	case 10:
-		c.MPEGVersion = 4
+		c.Rate = 0
+		c.Channels = 0
 	case 14:
 		c.Rate = 8000
-		c.MPEGVersion = 1
-		c.MPEGLayer = 3
 	}
 	return c, nil
 }
